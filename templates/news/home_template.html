@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
+    {% block bootstrap %}
+        {% include 'news/include/_boots_trap_connect.html' %}
+    {% endblock %}
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>
+        {% block title %}
+            Title
+        {% endblock %}
+    </title>
 </head>
-<body>
 
+<body>
+{% block navbar %}
+    {% include 'news/include/_navbar.html' %}
+{% endblock %}
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            {% block sidebar %}
+                {% include 'news/include/_sidebar.html' %}
+            {% endblock %}
+        </div>
+        <div class="col-6">
+            {% block content %}
+                {% include 'news/include/_content.html' %}
+            {% endblock %}
+            {% block paginator %}
+                {% include 'news/include/_paginator.html' %}
+            {% endblock %}
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
 </body>
+
 </html>
