@@ -11,6 +11,7 @@ class HomePageView(ListView):
     model = News
     template_name = 'news/home_template.html'
     queryset = News.objects.filter(published=True)
+    paginate_by = 8
 
     def get_context_data(self, **kwargs):
         """В контексте передаю название категорий и количество новостей которые принаддежат к той,
