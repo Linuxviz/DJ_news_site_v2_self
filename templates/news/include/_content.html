@@ -3,10 +3,22 @@
         <img src="{{ news.image }}" class="card-img-top" alt="{{ news.title }}">
         <div class="card-body">
             <h5 class="card-title">{{ news.title }}</h5>
+            <hr>
+            {% for cat in news.category.all %}
+                <span class="badge rounded-pill bg-primary">
+                        {{ cat.name }}
+                    </span>
+            {% endfor %}
+            <hr>
+            {% for tag in news.tags.all %}
+                <span class="badge rounded-pill" style="background-color:{{ tag.color }}">
+                        {{ tag.name }}
+                    </span>
+            {% endfor %}
+            <hr>
             <p class="card-text">{{ news.content|linebreaks|truncatewords:"50" }}</p>
             <a href="#" class="btn btn-primary">Читать полностью</a>
         </div>
     </div>
 {% endfor %}
 <div class="clear mb-3"></div>
-

@@ -1,11 +1,11 @@
-from django.shortcuts import render
 from django.views.generic import ListView
 from .models import News, NewsCategories, NewsTags
 
 
 class HomePageView(ListView):
     """
-    RU: Контроллер основной страницы, выводит новости и список категорий с количеством новостей в них
+    RU: Контроллер основной страницы, выводит новости и список категорий с количеством новостей в них,
+    используется пагинатор
     EN:
     """
     model = News
@@ -21,4 +21,5 @@ class HomePageView(ListView):
         context['categories_count'] = {}
         for category in NewsCategories.objects.all():
             context['categories_count'][category.name] = (News.objects.filter(category__name=category).count())
+        #print(context)
         return context
