@@ -26,7 +26,8 @@ class NewsTags(m.Model):
     """
     name = m.CharField(max_length=50, verbose_name='Название тега')
     description = m.TextField(max_length=150, verbose_name='Описание')
-    color = ColorField(default='#FF0000')
+    background_color = ColorField(default='#FF0000')
+    text_color = ColorField(default='#FF0000')
 
     def __str__(self):
         return f'{self.name}'
