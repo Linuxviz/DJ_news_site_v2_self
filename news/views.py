@@ -1,10 +1,28 @@
+from django.db.models import Q
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
 
 from .models import News, NewsCategories, NewsTags
 
 
-class HomePageView(ListView):
+class GetContextForSideBar:
+    def get_context_data(self, **kwargs):
+        """
+        RU:В контексте передаю название категорий и количество новостей которые принаддежат к той,
+         или иной категории. Неоптимально, уверен можно сделать лучше но ничего не нашел. ВАЖНО!
+        объявление должно быть до ListView т.к. перегружает метод именно этого объекта
+        EN:the declaration must be before the ListView
+         because overloads the method of this particular object
+        """
+        context = super().get_context_data(**kwargs)
+        context['categories_count'] = {}
+        for category in NewsCategories.objects.all():
+            context['categories_count'][category.name] = (News.objects.filter(category__name=category).count())
+        # print(context)
+        return context
+
+
+class HomePageView(GetContextForSideBar, ListView):
     """
     RU: Контроллер основной страницы, выводит новости и список категорий с количеством новостей в них,
     используется пагинатор
@@ -15,19 +33,19 @@ class HomePageView(ListView):
     queryset = News.objects.filter(published=True)
     paginate_by = 8
 
-    def get_context_data(self, **kwargs):
-        """В контексте передаю название категорий и количество новостей которые принаддежат к той,
-         или иной категории. Неоптимально, уверен можно сделать лучше но ничего не нашел, еще кажется QS
-         дважды отправляется"""
-        context = super().get_context_data(**kwargs)
-        context['categories_count'] = {}
-        for category in NewsCategories.objects.all():
-            context['categories_count'][category.name] = (News.objects.filter(category__name=category).count())
-        # print(context)
-        return context
 
-
-class NewsDetailView(DetailView):
+class NewsDetailView(GetContextForSideBar, DetailView):
     model = News
     template_name = 'news/news_detail_template.html'
 
+
+class NewsByCategory(GetContextForSideBar, ListView):
+    model = News
+    template_name = 'news/news_by_category_template.html'
+    paginate_by = 8
+
+    def get_queryset(self):
+        return News.objects.filter(
+            Q(category__name=self.kwargs['category_name']) &
+            Q(published=True)
+        )
