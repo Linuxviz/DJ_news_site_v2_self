@@ -1,4 +1,4 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
 
 from .models import News, NewsCategories, NewsTags
@@ -27,6 +27,7 @@ class HomePageView(ListView):
         return context
 
 
-class NewsDetailView(View):
+class NewsDetailView(DetailView):
     model = News
     template_name = 'news/news_detail_template.html'
+
