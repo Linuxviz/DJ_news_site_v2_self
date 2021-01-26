@@ -1,4 +1,6 @@
 from django.views.generic import ListView
+from django.views.generic.base import View
+
 from .models import News, NewsCategories, NewsTags
 
 
@@ -21,5 +23,10 @@ class HomePageView(ListView):
         context['categories_count'] = {}
         for category in NewsCategories.objects.all():
             context['categories_count'][category.name] = (News.objects.filter(category__name=category).count())
-        #print(context)
+        # print(context)
         return context
+
+
+class NewsDetailView(View):
+    model = News
+    template_name = 'news/news_detail_template.html'
