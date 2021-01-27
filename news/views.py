@@ -49,3 +49,12 @@ class NewsByCategory(GetContextForSideBar, ListView):
             Q(category__name=self.kwargs['category_name']) &
             Q(published=True)
         )
+
+    def get_context_data(self, **kwargs):
+        """
+        RU: Добавляет имя активной категории
+        EN:
+        """
+        context = super().get_context_data(**kwargs)
+        context['current_category'] = self.kwargs['category_name']
+        return context

@@ -5,7 +5,11 @@
             <hr>
             {% for cat in news.category.all %}
                 <span class="badge rounded-pill bg-primary">
-                        {{ cat.name }}
+                        <a href="{% url 'news_by_category' cat.name %}"
+                           style="color:white;
+                           text-decoration: none;">
+                            {{ cat.name }}
+                        </a>
                 </span>
             {% endfor %}
             <hr>

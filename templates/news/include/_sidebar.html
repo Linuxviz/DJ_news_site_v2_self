@@ -1,8 +1,23 @@
 <ul class="list-group mt-3">
     {% for category, count in categories_count.items %}
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a href="{% url 'news_by_category' category %}">{{ category }}</a>
-            <span class="badge bg-primary rounded-pill"> {{ count }}</span>
-        </li>
+        <a href="{% url 'news_by_category' category %}" style="color:white;
+                           text-decoration: none;">
+            {% if current_category == category %}
+                <button type="button" class="
+                                     list-group-item
+                                     d-flex list-group-item-action active
+                                     justify-content-between align-items-center">
+            {% else %}
+                <button type="button" class="
+                                     list-group-item
+                                     d-flex list-group-item-action
+                                     justify-content-between align-items-center">
+            {% endif %}
+            {{ category }}
+            <span class="badge bg-primary rounded-pill">
+                {{ count }}
+            </span>
+            </button>
+        </a>
     {% endfor %}
 </ul>

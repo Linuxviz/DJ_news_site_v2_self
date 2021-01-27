@@ -6,13 +6,18 @@
             <hr>
             {% for cat in news.category.all %}
                 <span class="badge rounded-pill bg-primary">
-                        {{ cat.name }}
+                        <a href="{% url 'news_by_category' cat.name %}"
+                           style="color:white;
+                           text-decoration: none;">
+                            {{ cat.name }}
+                        </a>
                 </span>
             {% endfor %}
             <hr>
             {% if news.tags.all %}
                 {% for tag in news.tags.all %}
-                    <span class="badge rounded-pill" style="background-color:{{ tag.background_color }}; color:{{ tag.text_color }}">
+                    <span class="badge rounded-pill"
+                          style="background-color:{{ tag.background_color }}; color:{{ tag.text_color }}">
                         {{ tag.name }}
                 </span>
                 {% endfor %}
