@@ -1,6 +1,5 @@
 from django.db.models import Q
 from django.views.generic import ListView, DetailView
-from django.views.generic.base import View
 
 from .models import News, NewsCategories, NewsTags
 
@@ -39,7 +38,7 @@ class NewsDetailView(GetContextForSideBar, DetailView):
     template_name = 'news/news_detail_template.html'
 
 
-class NewsByCategory(GetContextForSideBar, ListView):
+class NewsByCategoryView(GetContextForSideBar, ListView):
     model = News
     template_name = 'news/news_by_category_template.html'
     paginate_by = 8
@@ -58,3 +57,15 @@ class NewsByCategory(GetContextForSideBar, ListView):
         context = super().get_context_data(**kwargs)
         context['current_category'] = self.kwargs['category_name']
         return context
+
+
+class NewsByTagView(ListView):
+    model = News
+    template_name = 'news/news_by_tag_template.html'
+    paginate_by = 8
+
+    def get_queryset(self):
+        return News.objects.filter(
+            Q(tags__name=self.kwargs['tag_name']) &
+            Q(published=True)
+        )

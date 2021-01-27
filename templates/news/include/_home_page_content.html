@@ -16,10 +16,12 @@
             <hr>
             {% if news.tags.all %}
                 {% for tag in news.tags.all %}
-                    <span class="badge rounded-pill"
-                          style="background-color:{{ tag.background_color }}; color:{{ tag.text_color }}">
-                        {{ tag.name }}
-                </span>
+                    <a href="{% url 'news_by_tag' tag.name %}">
+                        <span class="badge rounded-pill"
+                              style="background-color:{{ tag.background_color }}; color:{{ tag.text_color }}">
+                            {{ tag.name }}
+                         </span>
+                    </a>
                 {% endfor %}
                 <hr>
             {% endif %}
