@@ -13,18 +13,23 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'admin:index' %}">Админка</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Вход</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Выход</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Регистрация</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Профиль</a>
-                </li>
+                {% if user.is_authenticated %}
+{#                    чет нето#}
+                    <li class="nav-item"><a class="nav-link">{{ user.username }}</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Выход</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Профиль</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Вход</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Регистрация</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>

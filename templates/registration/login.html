@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<!-- templates/registration/login.html -->
+{% extends 'news/base.html' %}
+{% block title %}
+    Вход
+{% endblock %}
+{% block sidebar %}{% endblock %}
+{% block content %}
+    <h2>Вход</h2>
+    <form method="post">
+    {% csrf_token %}
+        <div class="form-group">
+            <label for="id_username">Имя пользователя:</label>
+            <input autofocus type="text" maxlength="150" autocomplete="username" autocapitalize="none" required
+                   class="form-control" id="id_username" aria-describedby="emailHelp" name="username"
+                   placeholder="Введите имя пользователя">
+        </div>
+        <div class="form-group">
+            <label for="id_password">Пароль:</label>
+            <input type="password" name="password" autocomplete="current-password" class="form-control" id="id_password"
+                   placeholder="Введите пароль">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary mt-3">Подтвердить</button>
+        </div>
+    </form>
+{% endblock %}
+{% block paginator %}{% endblock %}
+
+
+
+

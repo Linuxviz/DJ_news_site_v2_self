@@ -1,33 +1,6 @@
-{% for news in object_list %}
-    <div class="card mt-3">
-        <img src="{{ news.image.url }}" class="card-img-top" alt="{{ news.title }}">
-        <div class="card-body">
-            <h5 class="card-title">{{ news.title }}</h5>
-            <hr>
-            {% for cat in news.category.all %}
-                <span class="badge rounded-pill bg-primary">
-                        <a href="{% url 'news_by_category' cat.name %}"
-                           style="color:white;
-                           text-decoration: none;">
-                            {{ cat.name }}
-                        </a>
-                </span>
-            {% endfor %}
-            <hr>
-            {% if news.tags.all %}
-                {% for tag in news.tags.all %}
-                    <a href="{% url 'news_by_tag' tag.name %}">
-                        <span class="badge rounded-pill"
-                              style="background-color:{{ tag.background_color }}; color:{{ tag.text_color }}">
-                            {{ tag.name }}
-                         </span>
-                    </a>
-                {% endfor %}
-                <hr>
-            {% endif %}
-            <p class="card-text">{{ news.content|linebreaks|truncatewords:"50" }}</p>
-            <a href="{% url 'news_detail_page' news.pk %}" class="btn btn-primary">Читать полностью</a>
-        </div>
-    </div>
-{% endfor %}
-<div class="clear mb-3"></div>
+{% extends 'news/include/base_content.html' %}
+{% block button %}
+    <a href="{% url 'news_detail_page' news.pk %}" class="btn btn-primary">Читать полностью</a>
+{% endblock %}
+
+
