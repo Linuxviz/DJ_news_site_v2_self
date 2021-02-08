@@ -3,5 +3,7 @@
     {% include "news/include/_news_by_tag_sidebar.html" %}
 {% endblock %}
 {% block content %}
-    {% include "news/include/_home_page_content.html" %}
+    {% for news in object_list %}
+        {% include "news/include/_home_page_content.html" %}
+    {% endfor %}
 {% endblock %}
