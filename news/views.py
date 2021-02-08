@@ -59,7 +59,7 @@ class NewsByCategoryView(GetContextForSideBar, ListView):
         return context
 
 
-class NewsByTagView(ListView):
+class NewsByTagView(GetContextForSideBar, ListView):
     model = News
     template_name = 'news/news_by_tag_template.html'
     paginate_by = 8
